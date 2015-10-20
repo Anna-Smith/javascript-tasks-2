@@ -34,7 +34,8 @@ function findEntries(query) {
         var name = phoneBook[i].name;
         var phone = phoneBook[i].phone;
         var email = phoneBook[i].email;
-        if (name.indexOf(query) !== -1 || phone.indexOf(query) !== -1 || email.indexOf(query) !== -1) {
+        if (name.indexOf(query) !== -1 || phone.indexOf(query) !== -1 ||
+            email.indexOf(query) !== -1) {
             foundEntries.push(phoneBook[i]);
         }
     }
