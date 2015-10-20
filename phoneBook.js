@@ -7,7 +7,7 @@ module.exports.add = function add(name, phone, email) {
     if (!name || !phone || !email) {
         return false;
     }
-    if (isValidPhone(phone) && isValidEmail(email)) {
+    if (typeof name === 'string' && isValidPhone(phone) && isValidEmail(email)) {
         phoneBook.push({name: name, phone: phone.replace(/\D/g, ''), email: email});
         return true;
     }
