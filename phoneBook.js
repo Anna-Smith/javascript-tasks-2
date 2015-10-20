@@ -139,11 +139,17 @@ module.exports.showTable = function showTable() {
 };
 
 function isValidPhone(phone) {
-    var phoneRegexp = /^\+?\d{1,3}\s?((\(\d{1,3}\))|\d{1,3})\s?\d{3}\s?\-?\s?\d\s?\-?\s?\d{3}$/i;
-    return phoneRegexp.test(phone);
+    if (typeof phone === 'string') {
+        var phoneRegexp = /^\+?\d{1,3}\s?((\(\d{1,3}\))|\d{1,3})\s?\d{3}\s?\-?\s?\d\s?\-?\s?\d{3}$/i;
+        return phoneRegexp.test(phone);
+    }
+    return false;
 }
 
 function isValidEmail(email) {
-    var mailRegexp = /^[^@]+@[^@]+\.[^@]+$/i;
-    return mailRegexp.test(email);
+    if (typeof email === 'string') {
+        var mailRegexp = /^[^@]+@[^@]+\.[^@]+$/i;
+        return mailRegexp.test(email);
+    }
+    return false;
 }
