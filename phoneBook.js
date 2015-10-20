@@ -4,7 +4,10 @@ var phoneBook = [];
 
 //Функция добавления записи в телефонную книгу
 module.exports.add = function add(name, phone, email) {
-    if (valid(phone, email)) {
+    if (!name || !phone || !email) {
+        return false;
+    }
+    if (isValidPhone(phone) && isValidEmail(email)) {
         phoneBook.push({name: name, phone: phone.replace(/\D/g, ''), email: email});
         return true;
     }
@@ -28,10 +31,10 @@ function findEntries(query) {
     var foundEntries = [];
     var phoneBookLength = phoneBook.length;
     for (var i = 0; i < phoneBookLength; i++) {
-        var name = phoneBook[i]['name'];
-        var phone = phoneBook[i]['phone'];
-        var email = phoneBook[i]['email'];
-        if (name.indexOf(query) != -1 || phone.indexOf(query) != -1 || email.indexOf(query) != -1) {
+        var name = phoneBook[i].name;
+        var phone = phoneBook[i].phone;
+        var email = phoneBook[i].email;
+        if (name.indexOf(query) !== -1 || phone.indexOf(query) !== -1 || email.indexOf(query) !== -1) {
             foundEntries.push(phoneBook[i]);
         }
     }
@@ -57,10 +60,8 @@ module.exports.importFromCsv = function importFromCsv(filename) {
     var addedContacts = 0;
     for (var i = 0; i < data.length; i++) {
         var args = data[i].split(';');
-        if (args.length === 3) {
-            if (module.exports.add(args[0], args[1], args[2])) {
-                addedContacts += 1;
-            }
+        if ((args.length === 3) && module.exports.add(args[0], args[1], args[2])) {
+            addedContacts += 1;
         }
     }
     console.log('Добавлено контактов: ' + addedContacts);
@@ -87,9 +88,10 @@ module.exports.showTable = function showTable() {
             maxEmailLength = emailLength;
         }
     }
-    maxNameLength += 4;
-    maxPhoneLength += 4;
-    maxEmailLength += 4;
+    var PADDING = 4;
+    maxNameLength += PADDING;
+    maxPhoneLength += PADDING;
+    maxEmailLength += PADDING;
 
     function repeatString(string, multiplier) {
         return new Array(multiplier + 1).join(string);
@@ -135,17 +137,11 @@ module.exports.showTable = function showTable() {
 
 };
 
-function valid(phone, email) {
-    return isValidPhone(phone) && isValidEmail(email);
-}
-
-//Функция, которая определяет, валиден ли введенный телефон
 function isValidPhone(phone) {
     var phoneRegexp = /^\+?\d{1,3}\s?((\(\d{1,3}\))|\d{1,3})\s?\d{3}\s?\-?\s?\d\s?\-?\s?\d{3}$/i;
     return phoneRegexp.test(phone);
 }
 
-//Функция, которая определяет, валиден ли введенный email
 function isValidEmail(email) {
     var mailRegexp = /^[^@]+@[^@]+\.[^@]+$/i;
     return mailRegexp.test(email);
