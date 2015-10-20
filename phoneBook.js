@@ -18,8 +18,8 @@ module.exports.find = function find(query) {
     var foundEntries = findEntries(query);
     var entriesLength = foundEntries.length;
     for (var i = 0; i < entriesLength; i++) {
-        console.log(foundEntries[i]['name'] + ', ' + foundEntries[i]['phone'] + ', ' +
-            foundEntries[i]['email']);
+        console.log(foundEntries[i].name + ', ' + foundEntries[i].phone + ', ' +
+            foundEntries[i].email);
     }
 };
 
@@ -76,9 +76,9 @@ module.exports.showTable = function showTable() {
     var maxPhoneLength = 0;
     var maxEmailLength = 0;
     for (var i = 0; i < phoneBookLength; i++) {
-        var nameLength = phoneBook[i]['name'].length;
-        var phoneLength = phoneBook[i]['phone'].length;
-        var emailLength = phoneBook[i]['email'].length;
+        var nameLength = phoneBook[i].name.length;
+        var phoneLength = phoneBook[i].phone.length;
+        var emailLength = phoneBook[i].email.length;
         if (nameLength > maxNameLength) {
             maxNameLength = nameLength;
         }
@@ -127,9 +127,9 @@ module.exports.showTable = function showTable() {
         repeatString('─', maxEmailLength) + '│');
 
     for (var j = 0; j < phoneBookLength; j++) {
-        console.log('│' + frameWithSpaces(phoneBook[j]['name'], maxNameLength) + '│' +
-            frameWithSpaces(phoneBook[j]['phone'], maxPhoneLength) + '│' +
-            frameWithSpaces(phoneBook[j]['email'], maxEmailLength) + '│');
+        console.log('│' + frameWithSpaces(phoneBook[j].name, maxNameLength) + '│' +
+            frameWithSpaces(phoneBook[j].phone, maxPhoneLength) + '│' +
+            frameWithSpaces(phoneBook[j].email, maxEmailLength) + '│');
     }
 
     console.log('└' + repeatString('─', maxNameLength) + '┴' +
